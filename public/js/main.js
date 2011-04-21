@@ -25,11 +25,7 @@ function appendToChart (name, value, created_at, host) {
       '<div class="graphs"><p>' + name + ': ' +
       '<span id="' + name + '_value" class="values"></span></p>' +
       '<canvas id="chart_'+ name +
-      '" width="800" height="200"></canvas></div>'
-    );
-    charts[name] = new SmoothieChart(
-      { minValue: 0, millisPerPixel: 100 },
-      1000 // delay
+      '" width="1600" height="400"></canvas></div>'
     );
     charts[name] = new SmoothieChart({
       fps: 30,
@@ -38,7 +34,7 @@ function appendToChart (name, value, created_at, host) {
       grid: {
         strokeStyle: '#555555',
         lineWidth: 1,
-        millisPerLine: 1000,
+        millisPerLine: 10000,
         verticalSections: 4
       }
     }, 1000 /* delay */ );
