@@ -2,14 +2,11 @@ charts = {}
 lines = {}
 hosts = []
 colors = [
-  {
-    'strokeStyle' : 'rgb(0, 255, 0)',
-    'fillStyle' : 'rgba(0, 255, 0, 0.4)'
-  },
-  {
-    'strokeStyle' : 'rgb(255, 0, 255)',
-    'fillStyle' : 'rgba(255, 0, 255, 0.3)'
-  }
+  {strokeStyle: 'rgba(255, 0, 0, 1)', fillStyle: 'rgba(255, 0, 0, 0.1)'},
+  {strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.1)'},
+  {strokeStyle: 'rgba(0, 0, 255, 1)', fillStyle: 'rgba(0, 0, 255, 0.1)'},
+  {strokeStyle: 'rgba(255, 0, 255, 1)', fillStyle: 'rgba(255, 0, 255, 0.1)'},
+  {strokeStyle: 'rgba(255, 255, 0, 1)', fillStyle: 'rgba(255, 255, 0, 0.1)'}
 ]
 
 // Open new socket and parse the response data into JSON
@@ -27,13 +24,20 @@ function appendToChart (name, value, created_at, host) {
     $('#main').append(
       '<div class="graphs"><p>' + name + ': ' +
       '<span id="' + name + '_value" class="values"></span></p>' +
-      '<canvas id="chart_'+ name + 
-      '" width="400" height="100"></canvas></div>'
+      '<canvas id="chart_'+ name +
+      '" width="1600" height="400"></canvas></div>'
     );
-    charts[name] = new SmoothieChart(
-      { minValue: 0, millisPerPixel: 100 }, 
-      1000 // delay
-    );
+    charts[name] = new SmoothieChart({
+      fps: 30,
+      millisPerPixel: 100,
+      minValue: 0,
+      grid: {
+        strokeStyle: '#555555',
+        lineWidth: 1,
+        millisPerLine: 10000,
+        verticalSections: 4
+      }
+    }, 1000 /* delay */ );
     charts[name].streamTo($('#chart_'+ name)[0]);
   }
   replaceValue(name, value, host);
@@ -47,9 +51,9 @@ function replaceValue(name, value, host) {
 function appendToLine (name, value, created_at, host) {
   if (typeof lines[name+host] == 'undefined') {
     if(hosts.indexOf(host) == -1) hosts.push(host);
-    
+
     lines[name + host] = new TimeSeries();
-    
+
     charts[name].addTimeSeries(
       lines[name + host],
       {
@@ -59,6 +63,6 @@ function appendToLine (name, value, created_at, host) {
       }
     );
   };
-  
+
   lines[name + host].append(created_at, value);
 }
