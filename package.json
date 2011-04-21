@@ -1,0 +1,22 @@
+{
+  "name": "healthety",
+  "description": "Realtime monitoring framework.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/healthety/healthety",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/healthety/healthety.git"
+  },
+  "author": [
+    "Hans Hasselberg <hans.hasselberg@googlemail.com>",
+    "Martin Jagusch <m@martinjagusch.com>"
+  ],
+  "main": "index",
+  "engines": {
+    "node": ">= 0.4.6"
+  },	
+  "dependencies": {
+    "socket.io": ">= 0.6.17",
+    "connect": ">= 1.3.0"
+  }
+}
