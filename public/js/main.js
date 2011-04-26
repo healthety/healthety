@@ -11,7 +11,7 @@ colors = [
 
 // Open new socket and parse the response data into JSON
 $(function() {
-  socket = new io.Socket(window.location.host, {'port': window.location.port});
+  socket = new io.Socket(window.location.host.split(":")[0], {'port': window.location.port});
   socket.connect();
   socket.on('message', function(data){
     var obj = jQuery.parseJSON(data);
