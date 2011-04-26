@@ -20,6 +20,6 @@ Then install Healthety by running:
       41234 // UDP server port
     );
 
-Visit 127.0.0.1:8124 to view the fontend.
+Open http://localhost:8124 in your browser.
 
 To report data you can use our worker. Currently there is only a [Ruby](https://github.com/healthety/ruby_worker) worker. But we'll publish very soon a PHP and JavaScript worker library.
