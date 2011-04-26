@@ -22,10 +22,10 @@ $(function() {
 function appendToChart (name, value, created_at, host) {
   if(typeof charts[name] == "undefined"){
     $('#main').append(
-      '<div class="graphs"><p>' + name + ': ' +
+      '<div class="widgets ' + name + '"><p>' + name + ': ' +
       '<span id="' + name + '_value" class="values"></span></p>' +
-      '<canvas id="chart_'+ name +
-      '" width="1600" height="400"></canvas></div>'
+      '<canvas id="'+ name +
+      '_chart" width="1600" height="400"></canvas></div>'
     );
     charts[name] = new SmoothieChart({
       fps: 30,
@@ -38,7 +38,7 @@ function appendToChart (name, value, created_at, host) {
         verticalSections: 4
       }
     }, 1000 /* delay */ );
-    charts[name].streamTo($('#chart_'+ name)[0]);
+    charts[name].streamTo($('#' + name + '_chart')[0]);
   }
   replaceValue(name, value, host);
   appendToLine(name, value, created_at, host);
@@ -66,3 +66,4 @@ function appendToLine (name, value, created_at, host) {
 
   lines[name + host].append(created_at, value);
 }
+
