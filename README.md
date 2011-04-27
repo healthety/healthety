@@ -23,3 +23,15 @@ Then install Healthety by running:
 Open http://localhost:8124 in your browser.
 
 To report data you can use our worker. Currently there is only a [Ruby](https://github.com/healthety/ruby_worker) worker. But we'll publish very soon a PHP and JavaScript worker library.
+
+## Basic Auth
+
+Optional you can use basic auth to protect your reports.
+
+    var server = require('healthety');
+    server.run(
+      8124, // http server port
+      41234, // UDP server port,
+      {basicAuth: {user: 'admin', pass: 'secret'}}
+    );
+
