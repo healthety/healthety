@@ -31,7 +31,7 @@ function appendToChart (name, value, created_at, host) {
         millisPerLine: 10000,
         verticalSections: 4
       }
-    }, 1000 /* delay */ );
+    }, 3000 /* delay */ );
     charts[name].streamTo($('#' + name + '_chart')[0]);
   }
   updateLegend();
