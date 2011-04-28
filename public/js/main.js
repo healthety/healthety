@@ -3,24 +3,45 @@ lines = {}
 hosts = []
 colors = ["Aqua", "Fuchsia", "Gray", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple", "Red", "Silver", "Teal", "White", "Yellow"]
 
-// Open new socket and parse the response data into JSON
+// open new socket and parse the response data into JSON
 $(function() {
   socket = new io.Socket(window.location.host.split(":")[0], {'port': window.location.port});
   socket.connect();
   socket.on('message', function(data){
     var obj = jQuery.parseJSON(data);
-     appendToChart(obj.name, obj.value, new Date(obj.created_at), obj.host);
+    appendToChart(obj.name, obj.value, new Date(obj.created_at), obj.host);
+  });
+  $('.widgets').live('click', function(){
+    var name = $(this).children('input[type=hidden]')[0].value;
+    var number = $($('#' + name + '_value')[0]);
+    var chart = $($('#' + name + '_chart')[0]);
+    var number_hidden = $('#' + name + '_value:hidden').length == 1;
+    var chart_hidden = $('#' + name + '_chart:hidden').length == 1;
+    if(!number_hidden && !chart_hidden){
+      number.hide();
+    } else if (number_hidden){
+      number.show();
+      chart.hide();
+    } else if (chart_hidden){
+      number.show();
+      chart.show();
+    };
   });
 });
 
 function appendToChart (name, value, created_at, host) {
   if(typeof charts[name] == "undefined"){
     $('#main').append(
-      '<div class="widgets ' + name + '"><p><h2>' + name + ': ' +
+      '<li class="widgets ' + name + '"><input type="hidden" value="' + name +
+      '"><p><h2>' + name + ': ' +
       '<span id="' + name + '_value" class="values"></span></h2></p>' +
       '<canvas id="'+ name +
-      '_chart" width="1600" height="200"></canvas></div>'
+      '_chart" width="1600" height="200"></canvas></li>'
     );
+    // $('#main > div').draggable({ containment: 'parent' });
+    $( "#main" ).sortable();
+    // $( "li" ).disableSelection();
+
     charts[name] = new SmoothieChart({
       fps: 30,
       millisPerPixel: 100,

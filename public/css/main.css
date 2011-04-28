@@ -3,4 +3,14 @@ body {
   background-color: #0A0A0A;
   color: white;
 }
-
+#main {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.widgets {
+  margin-top: 1em;
+  border-width: thin;
+  border-color: white;
+  border-style: dotted;
+}
