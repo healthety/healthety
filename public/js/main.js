@@ -1,13 +1,7 @@
 charts = {}
 lines = {}
 hosts = []
-colors = [
-  {strokeStyle: 'rgba(255, 0, 0, 1)', fillStyle: 'rgba(255, 0, 0, 0.1)'},
-  {strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.1)'},
-  {strokeStyle: 'rgba(0, 0, 255, 1)', fillStyle: 'rgba(0, 0, 255, 0.1)'},
-  {strokeStyle: 'rgba(255, 0, 255, 1)', fillStyle: 'rgba(255, 0, 255, 0.1)'},
-  {strokeStyle: 'rgba(255, 255, 0, 1)', fillStyle: 'rgba(255, 255, 0, 0.1)'}
-]
+colors = ["Aqua", "Fuchsia", "Gray", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple", "Red", "Silver", "Teal", "White", "Yellow"]
 
 // Open new socket and parse the response data into JSON
 $(function() {
@@ -65,8 +59,7 @@ function appendToLine (name, value, created_at, host) {
     charts[name].addTimeSeries(
       lines[name + host],
       {
-        strokeStyle: colors[hosts.indexOf(host)]['strokeStyle'],
-        fillStyle: colors[hosts.indexOf(host)]['fillStyle'],
+        strokeStyle: colors[hosts.indexOf(host)],
         lineWidth: 3
       }
     );
