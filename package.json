@@ -1,7 +1,7 @@
 {
   "name": "healthety",
   "description": "Realtime monitoring framework.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "https://github.com/healthety/healthety",
   "repository": {
     "type": "git",
