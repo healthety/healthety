@@ -1,7 +1,7 @@
 charts = {}
 lines = {}
 hosts = []
-colors = ["Aqua", "Fuchsia", "Gray", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple", "Red", "Silver", "Teal", "White", "Yellow"]
+colors = ["Aqua", "Black", "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple", "Red", "Teal"]
 
 // open new socket and parse the response data into JSON
 $(function() {
@@ -38,17 +38,16 @@ function appendToChart (name, value, created_at, host) {
       '<canvas id="'+ name +
       '_chart" width="1600" height="200"></canvas></li>'
     );
-    // $('#main > div').draggable({ containment: 'parent' });
     $( "#main" ).sortable();
-    // $( "li" ).disableSelection();
 
     charts[name] = new SmoothieChart({
       fps: 30,
       millisPerPixel: 100,
       minValue: 0,
       grid: {
-        strokeStyle: '#555555',
-        lineWidth: 1,
+        fillStyle: 'white',
+        strokeStyle: '#999',
+        lineWidth: 0.5,
         millisPerLine: 10000,
         verticalSections: 4
       }
