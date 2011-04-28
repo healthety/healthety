@@ -16,10 +16,10 @@ $(function() {
 function appendToChart (name, value, created_at, host) {
   if(typeof charts[name] == "undefined"){
     $('#main').append(
-      '<div class="widgets ' + name + '"><p>' + name + ': ' +
-      '<span id="' + name + '_value" class="values"></span></p>' +
+      '<div class="widgets ' + name + '"><p><h2>' + name + ': ' +
+      '<span id="' + name + '_value" class="values"></span></h2></p>' +
       '<canvas id="'+ name +
-      '_chart" width="1600" height="400"></canvas></div>'
+      '_chart" width="1600" height="200"></canvas></div>'
     );
     charts[name] = new SmoothieChart({
       fps: 30,
