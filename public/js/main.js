@@ -40,8 +40,16 @@ function appendToChart (name, value, created_at, host) {
     }, 1000 /* delay */ );
     charts[name].streamTo($('#' + name + '_chart')[0]);
   }
+  updateLegend();
   replaceValue(name, value, host);
   appendToLine(name, value, created_at, host);
+}
+
+function updateLegend(){
+  $('#legend').html('');
+  for(i=0; i < hosts.length; i++){
+    $('#legend').append('<span style="color:' + colors[i] + '">' + hosts[i] + "  </span>");
+  }
 }
 
 function replaceValue(name, value, host) {
