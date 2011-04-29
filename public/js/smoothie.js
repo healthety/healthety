@@ -37,7 +37,7 @@ function TimeSeries(options) {
   options.resetBounds = options.resetBounds || true; // Enable or disable the resetBounds timer
   this.options = options;
   this.data = [];
-  
+
   this.maxValue = Number.NaN; // The maximum value ever seen in this time series.
   this.minValue = Number.NaN; // The minimum value ever seen in this time series.
 
@@ -81,7 +81,7 @@ SmoothieChart.prototype.addTimeSeries = function(timeSeries, options) {
 };
 
 SmoothieChart.prototype.removeTimeSeries = function(timeSeries) {
-	this.seriesSet.splice(this.seriesSet.indexOf(timeSeries), 1);
+  this.seriesSet.splice(this.seriesSet.indexOf(timeSeries), 1);
 };
 
 SmoothieChart.prototype.streamTo = function(canvas, delay) {
@@ -106,7 +106,7 @@ SmoothieChart.prototype.render = function(canvas, time) {
 
   // Move the origin.
   canvasContext.translate(dimensions.left, dimensions.top);
-  
+
   // Create a clipped rectangle - anything we draw will be constrained to this rectangle.
   // This prevents the occasional pixels from curves near the edges overrunning and creating
   // screen cheese (that phrase should neeed no explanation).
@@ -177,7 +177,7 @@ SmoothieChart.prototype.render = function(canvas, time) {
   if (options.minValue != null)
     minValue = options.minValue;
   var valueRange = maxValue - minValue;
-  
+
   // For each data set...
   for (var d = 0; d < this.seriesSet.length; d++) {
     canvasContext.save();
