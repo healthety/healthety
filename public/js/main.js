@@ -1,3 +1,57 @@
+$(function(){
+  Healthety().draw();
+});
+
+var Healthety = function(){
+
+  var minime = {};
+
+  colors = [
+    "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
+    "Red", "Teal"
+  ]
+  var socket;
+  var charts = {};
+  var lines = {};
+
+  minime.draw = function(){
+    socket = connect();
+    socket.on('message', function(data){
+      initChart(jQuery.parseJSON(data));
+    });
+  };
+
+  function connect(){
+    socket = new io.Socket(
+      window.location.host.split(":")[0], {'port': window.location.port}
+    );
+    socket.connect();
+    return socket;
+  }
+
+  function initChart(json){
+    // check if host is already known
+    if(typeof charts[json.name] == 'undefined'){
+      $('#main').append(
+        '<li class="widget"><div class="line_chart"></div></li>'
+      );
+      charts[json.name] = $('.widget:last');
+
+      $.plot(charts[json.name].children('.line_chart'), [[1, 2], [2, 2]], {});
+    }
+
+    draw_line(json);
+  };
+
+  function draw_line(json){
+    if()
+  }
+
+  return minime;
+}
+
+// OLD
+
 charts = {}
 lines = {}
 hosts = []
@@ -7,7 +61,7 @@ colors = [
 ]
 
 // open new socket and parse the response data into JSON
-$(function() {
+var onload = function() {
   socket = new io.Socket(
     window.location.host.split(":")[0],
     {'port': window.location.port}
@@ -35,7 +89,7 @@ $(function() {
       $(this).css('width', '');
     };
   });
-});
+}
 
 function appendToChart (name, value, created_at, host) {
   if(typeof charts[name] == "undefined"){

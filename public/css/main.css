@@ -28,6 +28,13 @@ h2 {
   -webkit-border-radius: 15px;
   box-shadow:8px 8px 8px #666;
 }
-canvas {
+.canvas {
   padding-bottom: 10px;
+  height: 200px;
+  width: 1600px;
+}
+
+.line_chart {
+  height: 400;
+  width: 800;
 }
