@@ -22,7 +22,7 @@ Then install Healthety by running:
 
 Open http://localhost:8124 in your browser.
 
-To report data you can use our worker. Currently there is only a [Ruby](https://github.com/healthety/ruby_worker) worker. But we'll publish very soon a PHP and JavaScript worker library.
+To report data you can use our worker. Currently there is a [Ruby](https://github.com/healthety/ruby_worker) and [PHP](https://github.com/healthety/php_worker) worker. We'll publish very soon a JavaScript worker library.
 
 ## Basic Auth
 
