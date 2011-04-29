@@ -35,9 +35,9 @@ var Healthety = function(){
       $('#main').append(
         '<li class="widget"><div class="line_chart"></div></li>'
       );
-      charts[json.name] = $('.widget:last');
 
-      $.plot(charts[json.name].children('.line_chart'), [[1, 2], [2, 2]], {});
+      charts[json.name] = $('.widget:last');
+      $.plot(charts[json.name].children('.line_chart'), [ [ [10, 1], [17, -14], [30, 5] ] ], {});
     }
 
     draw_line(json);
