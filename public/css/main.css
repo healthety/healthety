@@ -1,7 +1,5 @@
 body {
-  /* font-family: verdana, arial, helvetica, sans-serif; */
-  font-family: 'Trebuchet MS', Helvetica, sans-serif;
-  /* background-color: white; /* #0A0A0A; */
+  font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
   color: #333;
 }
 #main {
@@ -14,4 +12,15 @@ h1 {
 }
 h2 {
   font-size: 40px;
+}
+.widgets {
+  background: #EEE;
+  margin-top: 1em;
+  padding-left: 10px;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+canvas {
+  padding-bottom: 10px;
 }
