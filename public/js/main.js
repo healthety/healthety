@@ -16,7 +16,10 @@ var Healthety = function(){
   minime.draw = function(){
     socket = connect();
     socket.on('message', function(data){
-      initChart(jQuery.parseJSON(data));
+      json = jQuery.parseJSON(data);
+      initChart(json);
+      charts[json.name].setupGrid();
+      charts[json.name].draw();
     });
   };
 
@@ -29,21 +32,26 @@ var Healthety = function(){
   }
 
   function initChart(json){
-    // check if host is already known
-    if(typeof charts[json.name] == 'undefined'){
+    // Check if host is already known.
+    if(charts[json.name] === undefined){
       $('#main').append(
         '<li class="widget"><div class="line_chart"></div></li>'
       );
 
-      charts[json.name] = $('.widget:last');
-      $.plot(charts[json.name].children('.line_chart'), [ [ [10, 1], [17, -14], [30, 5] ] ], {});
+      lines[json.name] = [ [json.date, json.value] ];
+      charts[json.name] = $.plot(
+        $('.widget:last').children('.line_chart'), [], {}
+      );
     }
 
-    draw_line(json);
+    appendLine(json);
   };
 
-  function draw_line(json){
-    if()
+  function appendLine(json){
+    lines[json.name].push( [json.date, json.value] );
+    if (lines[json.name].length >= 20) lines[json.name].shift();
+
+    charts[json.name].setData( [lines[json.name] ] );
   }
 
   return minime;
