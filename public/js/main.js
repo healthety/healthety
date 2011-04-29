@@ -3,16 +3,15 @@ $(function(){
 });
 
 var Healthety = function(){
-
   var minime = {};
-
-  colors = [
-    "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
-    "Red", "Teal"
-  ]
-  var socket;
   var charts = {};
   var lines = {};
+  var socket;
+
+  var colors = [
+    "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
+    "Red", "Teal"
+  ];
 
   minime.draw = function(){
     socket = connect();
