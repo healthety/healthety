@@ -46,7 +46,7 @@ function appendToChart (name, value, created_at, host) {
       minValue: 0,
       grid: {
         fillStyle: 'white',
-        strokeStyle: 'black',
+        strokeStyle: '#848484',
         lineWidth: 1,
         millisPerLine: 10000,
         verticalSections: 4
