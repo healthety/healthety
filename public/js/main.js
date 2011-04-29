@@ -1,11 +1,17 @@
 charts = {}
 lines = {}
 hosts = []
-colors = ["Aqua", "Black", "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple", "Red", "Teal"]
+colors = [
+  "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
+  "Red", "Teal"
+]
 
 // open new socket and parse the response data into JSON
 $(function() {
-  socket = new io.Socket(window.location.host.split(":")[0], {'port': window.location.port});
+  socket = new io.Socket(
+    window.location.host.split(":")[0],
+    {'port': window.location.port}
+  );
   socket.connect();
   socket.on('message', function(data){
     var obj = jQuery.parseJSON(data);
@@ -44,14 +50,18 @@ function appendToChart (name, value, created_at, host) {
       fps: 30,
       millisPerPixel: 100,
       minValue: 0,
+      resetBounds: false,
       grid: {
         fillStyle: 'white',
         strokeStyle: '#848484',
-        lineWidth: 1,
-        millisPerLine: 10000,
+        lineWidth: 0.7,
+        millisPerLine: 60000, // every minute a line
         verticalSections: 4
+      },
+      labels: {
+        fillStyle: '#333'
       }
-    }, 3000 /* delay */ );
+    });
     charts[name].streamTo($('#' + name + '_chart')[0]);
   }
   updateLegend();
