@@ -28,9 +28,11 @@ $(function() {
     } else if (number_hidden){
       number.show();
       chart.hide();
+      $(this).width(450);
     } else if (chart_hidden){
       number.show();
       chart.show();
+      $(this).css('width', '');
     };
   });
 });
