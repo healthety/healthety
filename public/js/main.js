@@ -1,5 +1,6 @@
 $(function(){
-  Healthety().draw();
+  h = Healthety();
+  h.draw();
 });
 
 var Healthety = function(){
@@ -14,8 +15,6 @@ var Healthety = function(){
     "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
     "Red", "Teal"
   ];
-  // flot colors. still looking for more.
-  // var colors = ["#edc240", "#afd8f8", "#cb4b4b", "#4da74d", "#9440ed"]
 
   minime.draw = function(){
     socket = connect();
@@ -26,6 +25,8 @@ var Healthety = function(){
       charts[json.name].draw();
     });
   };
+
+  minime.getSocket = function(){ return socket; };
 
   function connect(){
     socket = new io.Socket(
@@ -41,10 +42,12 @@ var Healthety = function(){
     // Check if host is already known.
     if(charts[json.name] === undefined){
       $('#main').append(
-        '<li id="' + json.name + '" class="widget">'+
-          '<div class="value">Values: </div><div class="line_chart"></div>'+
+        '<li id="' + json.name + '" class="widget"><h2>'+ json.name +
+          '</h2><input type="text" /><span class="value">: </span><div class="line_chart"></div>'+
         '</li>'
       );
+
+      $('#main').sortable();
 
       var options = {
         series: { shadowSize:  0},
@@ -71,6 +74,7 @@ var Healthety = function(){
         '<span class="'+ hostname +'" style="color: '+ getColor(json.host) +'">'+
         '</span>'
       );
+
       value = values[json.name][json.host] = $('#' + json.name + ' .value span')
     }
     value.html(json.value);

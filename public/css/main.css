@@ -14,13 +14,32 @@ h2 {
   font-size: 40px;
   margin-top: 0;
   margin-bottom: 0;
+  float: left;
+}
+
+.widget {
+  padding-right: 100px;
+  margin-top: 50px;
+  float: left;
 }
 
 .line_chart {
-  height: 400;
-  width: 1600;
+  height: 350;
+  width: 1500;
+}
+
+.value {
+  clear: both;
+  font-size: 40px;
 }
 
 .value span {
   padding-right: 1em;
+}
+
+li input {
+  float: left;
+  width: 100px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
