@@ -1,102 +1,110 @@
-charts = {}
-lines = {}
-hosts = []
-colors = [
-  "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
-  "Red", "Teal"
-]
-
-// open new socket and parse the response data into JSON
-$(function() {
-  socket = new io.Socket(
-    window.location.host.split(":")[0],
-    {'port': window.location.port}
-  );
-  socket.connect();
-  socket.on('message', function(data){
-    var obj = jQuery.parseJSON(data);
-    appendToChart(obj.name, obj.value, new Date(obj.created_at), obj.host);
-  });
-  $('.widgets').live('click', function(){
-    var name = $(this).children('input[type=hidden]')[0].value;
-    var number = $($('#' + name + '_value')[0]);
-    var chart = $($('#' + name + '_chart')[0]);
-    var number_hidden = $('#' + name + '_value:hidden').length == 1;
-    var chart_hidden = $('#' + name + '_chart:hidden').length == 1;
-    if(!number_hidden && !chart_hidden){
-      number.hide();
-    } else if (number_hidden){
-      number.show();
-      chart.hide();
-      $(this).width(450);
-    } else if (chart_hidden){
-      number.show();
-      chart.show();
-      $(this).css('width', '');
-    };
-  });
+$(function(){
+  h = Healthety();
+  h.draw();
 });
 
-function appendToChart (name, value, created_at, host) {
-  if(typeof charts[name] == "undefined"){
-    $('#main').append(
-      '<li class="widgets ' + name + '"><input type="hidden" value="' + name +
-      '"><p><h2>' + name + ': ' +
-      '<span id="' + name + '_value" class="values"></span></h2></p>' +
-      '<canvas id="'+ name +
-      '_chart" width="1600" height="200"></canvas></li>'
-    );
-    $( "#main" ).sortable();
+var Healthety = function(){
+  var minime = {};
+  var charts = {};
+  var values = {};
+  var lines = {};
+  var hosts = [];
+  var socket;
 
-    charts[name] = new SmoothieChart({
-      fps: 30,
-      millisPerPixel: 100,
-      minValue: 0,
-      resetBounds: false,
-      grid: {
-        fillStyle: 'white',
-        strokeStyle: '#848484',
-        lineWidth: 0.7,
-        millisPerLine: 60000, // every minute a line
-        verticalSections: 4
-      },
-      labels: {
-        fillStyle: '#333'
-      }
+  var colors = [
+    "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
+    "Red", "Teal"
+  ];
+
+  minime.draw = function(){
+    socket = connect();
+    socket.on('message', function(data){
+      json = jQuery.parseJSON(data);
+      initChart(json);
+      charts[json.name].setupGrid();
+      charts[json.name].draw();
     });
-    charts[name].streamTo($('#' + name + '_chart')[0]);
-  }
-  updateLegend();
-  replaceValue(name, value, host);
-  appendToLine(name, value, created_at, host);
-}
-
-function updateLegend(){
-  $('#legend').html('');
-  for(i=0; i < hosts.length; i++){
-    $('#legend').append('<span style="color:' + colors[i] + '">' + hosts[i] + "  </span>");
-  }
-}
-
-function replaceValue(name, value, host) {
-  $('#' + name + '_value').html(value);
-}
-
-function appendToLine (name, value, created_at, host) {
-  if (typeof lines[name+host] == 'undefined') {
-    if(hosts.indexOf(host) == -1) hosts.push(host);
-
-    lines[name + host] = new TimeSeries();
-
-    charts[name].addTimeSeries(
-      lines[name + host],
-      {
-        strokeStyle: colors[hosts.indexOf(host)],
-        lineWidth: 3
-      }
-    );
   };
 
-  lines[name + host].append(created_at, value);
+  minime.getSocket = function(){ return socket; };
+
+  function connect(){
+    socket = new io.Socket(
+      window.location.host.split(":")[0], {'port': window.location.port}
+    );
+    socket.connect();
+    return socket;
+  }
+
+  function initChart(json){
+    if(hosts.indexOf(json.host) == -1) hosts.push(json.host);
+
+    // Check if host is already known.
+    if(charts[json.name] === undefined){
+      $('#main').append(
+        '<li id="' + json.name + '" class="widget"><h2>'+ json.name +
+          '</h2><input type="text" /><span class="value">: </span><div class="line_chart"></div>'+
+        '</li>'
+      );
+
+      $('#main').sortable();
+
+      var options = {
+        series: { shadowSize:  0},
+        xaxis:  { mode: 'time', timeformat: "%H:%M:%S" },
+        yaxis:  { min: 0 }
+      };
+
+      values[json.name] = {};
+      lines[json.name] = {};
+
+      charts[json.name] = $.plot(
+        $('.widget:last').children('.line_chart'), [], options
+      );
+    }
+    replaceValue(json);
+    appendLine(json);
+  };
+
+  function replaceValue(json){
+    var value = values[json.name][json.host];
+    var hostname = json.host.replace(/\W/g, '_');
+    if(value === undefined){
+      $('#' + json.name + ' .value').append(
+        '<span class="'+ hostname +'" style="color: '+ getColor(json.host) +'">'+
+        '</span>'
+      );
+
+      value = values[json.name][json.host] = $('#' + json.name + ' .value span')
+    }
+    value.html(json.value);
+  }
+
+  function appendLine(json){
+    var line = lines[json.name][json.host]
+    if(line === undefined){
+      line = lines[json.name][json.host] = {
+        label: json.host,
+        color: getColor(json.host),
+        data: []
+      };
+    }
+    line.data.push( [json.date*1000, json.value] );
+    if (line.data.length >= 100){
+      line.data.shift();
+    }
+    var data = [];
+    for(var host in lines[json.name]){
+      data.push(lines[json.name][host]);
+    }
+
+    charts[json.name].setData( data );
+  }
+
+  function getColor(hostname){
+    return colors[hosts.indexOf(hostname)];
+  }
+
+  return minime;
 }
 
