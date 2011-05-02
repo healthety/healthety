@@ -16,25 +16,11 @@ h2 {
   margin-bottom: 0;
 }
 
-.widgets {
-  float: left;
-  background: #EEE;
-  margin-top: 1em;
-  margin-right: 1em;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 15px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  box-shadow:8px 8px 8px #666;
-}
-.canvas {
-  padding-bottom: 10px;
-  height: 200px;
-  width: 1600px;
-}
-
 .line_chart {
   height: 400;
-  width: 800;
+  width: 1600;
+}
+
+.value span {
+  padding-right: 1em;
 }

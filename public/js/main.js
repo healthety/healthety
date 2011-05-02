@@ -5,14 +5,17 @@ $(function(){
 var Healthety = function(){
   var minime = {};
   var charts = {};
+  var values = {};
   var lines = {};
-  var hosts = {};
+  var hosts = [];
   var socket;
 
   var colors = [
     "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
     "Red", "Teal"
   ];
+  // flot colors. still looking for more.
+  // var colors = ["#edc240", "#afd8f8", "#cb4b4b", "#4da74d", "#9440ed"]
 
   minime.draw = function(){
     socket = connect();
@@ -33,36 +36,58 @@ var Healthety = function(){
   }
 
   function initChart(json){
+    if(hosts.indexOf(json.host) == -1) hosts.push(json.host);
+
     // Check if host is already known.
     if(charts[json.name] === undefined){
       $('#main').append(
-        '<li class="widget"><div class="line_chart"></div></li>'
+        '<li id="' + json.name + '" class="widget">'+
+          '<div class="value">Values: </div><div class="line_chart"></div>'+
+        '</li>'
       );
 
       var options = {
         series: { shadowSize:  0},
-        xaxis:  { mode: 'time', timeformat: "%H:%M:%S" }
-      }
+        xaxis:  { mode: 'time', timeformat: "%H:%M:%S" },
+        yaxis:  { min: 0 }
+      };
 
-      lines[json.name] = {}
+      values[json.name] = {};
+      lines[json.name] = {};
 
       charts[json.name] = $.plot(
         $('.widget:last').children('.line_chart'), [], options
       );
     }
-
+    replaceValue(json);
     appendLine(json);
   };
+
+  function replaceValue(json){
+    var value = values[json.name][json.host];
+    var hostname = json.host.replace(/\W/g, '_');
+    if(value === undefined){
+      $('#' + json.name + ' .value').append(
+        '<span class="'+ hostname +'" style="color: '+ getColor(json.host) +'">'+
+        '</span>'
+      );
+      value = values[json.name][json.host] = $('#' + json.name + ' .value span')
+    }
+    value.html(json.value);
+  }
 
   function appendLine(json){
     var line = lines[json.name][json.host]
     if(line === undefined){
-      line = lines[json.name][json.host] = {label: json.host, data: []};
+      line = lines[json.name][json.host] = {
+        label: json.host,
+        color: getColor(json.host),
+        data: []
+      };
     }
-    var millis = json.date*1000
-    line.data.push( [millis, json.value] );
-    if (line.length >= 10){
-      line.shift();
+    line.data.push( [json.date*1000, json.value] );
+    if (line.data.length >= 100){
+      line.data.shift();
     }
     var data = [];
     for(var host in lines[json.name]){
@@ -70,6 +95,10 @@ var Healthety = function(){
     }
 
     charts[json.name].setData( data );
+  }
+
+  function getColor(hostname){
+    return colors[hosts.indexOf(hostname)];
   }
 
   return minime;
