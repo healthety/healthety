@@ -43,11 +43,6 @@ var Healthety = function(){
 
     // Check if host is already known.
     if(charts[json.name] === undefined){
-//       $('#main').append(
-//         '<li id="' + json.name + '" class="widget"><h2>'+ json.name +
-//           '</h2><input type="text" /><span class="value">: </span><div class="line_chart"></div>'+
-//         '</li>'
-//       );
       $('#main').append('<li id="'+ json.name +'" class="block widget">'+
         '<div class="block_head"><div class="bheadl"></div><div class="bheadr">'+
         '</div><h2>'+ json.name +'</h2><ul class="tabs value"></ul></div>'+
@@ -81,9 +76,10 @@ var Healthety = function(){
       $('#' + json.name + ' .value').append(
         '<li class="nobg '+ hostname +'"></li>'
       );
-      value = values[json.name][json.host] = $('#' + json.name + ' .value li:last')
+      value = values[json.name][json.host] = $('#'+json.name+' .value li:last ');
+      value.css('color', getColor(json.host)).css('font-size', '20px');
     }
-    value.html('<h2 style="color: '+ getColor(json.host) +'">'+json.value+'</h2>');
+    value.html(json.value);
   }
 
   function appendLine(json){
@@ -98,9 +94,12 @@ var Healthety = function(){
     // line.data.push( [json.date*1000, json.value] );
     line.data.push( [(new Date()).getTime(), json.value] );
 
-    if (line.data.length >= 100){
-      line.data.shift();
+    var first_element = line.data.shift();
+    // unshift when not older then 5minutes
+    if(first_element[0] > (Date.now()-300000)){
+      line.data.unshift(first_element);
     }
+
     var data = [];
     for(var host in lines[json.name]){
       data.push(lines[json.name][host]);
