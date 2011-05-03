@@ -12,7 +12,7 @@ $(function(){
     }
 
     var hostname = json.host.replace(/\W/g, '_');
-    if(json.value >= parseInt($('#' + json.name + ' input')[0].value)){
+    if(json.value >= parseInt($(document).getUrlParam(json.name))){
       if(warnings[json.name][json.host] == false){
         warnings[json.name][json.host] = true;
       }
