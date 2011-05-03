@@ -1,45 +1,5 @@
-body {
-  font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
-  color: #333;
-}
-#main {
-  list-style-type: none;
-  padding: 0;
-  margin: 20px 0 0 30px;
-}
-h1 {
-  font-size: 50px;
-}
-h2 {
-  font-size: 40px;
-  margin-top: 0;
-  margin-bottom: 0;
-  float: left;
-}
-
-.widget {
-  padding-right: 100px;
-  margin-top: 50px;
-  float: left;
-}
-
 .line_chart {
-  height: 350;
-  width: 1500;
+  height: 300px;
+  width: 1400px;
 }
 
-.value {
-  clear: both;
-  font-size: 40px;
-}
-
-.value span {
-  padding-right: 1em;
-}
-
-li input {
-  float: left;
-  width: 100px;
-  margin-top: 20px;
-  margin-left: 10px;
-}

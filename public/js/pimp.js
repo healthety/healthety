@@ -36,12 +36,15 @@ $(function(){
   });
 
   $('h2').live('click', function(){
-    var chart = $(this).parent().children('.line_chart');
-    var chart_hidden = $(this).parent().children('.line_chart:hidden').length == 1;
+    var chart = $(this).parents('li').children('.block_content');
+    var chart_hidden = $(this).parents('li')
+      .children('.block_content:hidden').length == 1;
     if (chart_hidden) {
       chart.show();
+      chart.parent().removeClass('small');
     } else {
       chart.hide();
+      chart.parent().addClass('small');
     };
   });
 });

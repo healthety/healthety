@@ -16,6 +16,8 @@ var Healthety = function(){
     "Red", "Teal"
   ];
 
+  var colors = ["#edc240", "#afd8f8", "#cb4b4b", "#4da74d", "#9440ed"];
+
   minime.draw = function(){
     socket = connect();
     socket.on('message', function(data){
@@ -41,25 +43,31 @@ var Healthety = function(){
 
     // Check if host is already known.
     if(charts[json.name] === undefined){
-      $('#main').append(
-        '<li id="' + json.name + '" class="widget"><h2>'+ json.name +
-          '</h2><input type="text" /><span class="value">: </span><div class="line_chart"></div>'+
-        '</li>'
-      );
+//       $('#main').append(
+//         '<li id="' + json.name + '" class="widget"><h2>'+ json.name +
+//           '</h2><input type="text" /><span class="value">: </span><div class="line_chart"></div>'+
+//         '</li>'
+//       );
+      $('#main').append('<li id="'+ json.name +'" class="block widget">'+
+        '<div class="block_head"><div class="bheadl"></div><div class="bheadr">'+
+        '</div><h2>'+ json.name +'</h2><ul class="tabs value"></ul></div>'+
+        '<div class="block_content tab_content"><div class="line_chart">'+
+        '</div></div><div class="bendl"></div><div class="bendr"></div></li>');
 
       $('#main').sortable();
 
       var options = {
         series: { shadowSize:  0},
         xaxis:  { mode: 'time', timeformat: "%H:%M:%S" },
-        yaxis:  { min: 0 }
+        yaxis:  { min: 0 },
+        grid:   { color: '#666'}
       };
 
       values[json.name] = {};
       lines[json.name] = {};
 
       charts[json.name] = $.plot(
-        $('.widget:last').children('.line_chart'), [], options
+        $('.line_chart:last'), [], options
       );
     }
     replaceValue(json);
@@ -71,13 +79,11 @@ var Healthety = function(){
     var hostname = json.host.replace(/\W/g, '_');
     if(value === undefined){
       $('#' + json.name + ' .value').append(
-        '<span class="'+ hostname +'" style="color: '+ getColor(json.host) +'">'+
-        '</span>'
+        '<li class="nobg '+ hostname +'"></li>'
       );
-
-      value = values[json.name][json.host] = $('#' + json.name + ' .value span')
+      value = values[json.name][json.host] = $('#' + json.name + ' .value li:last')
     }
-    value.html(json.value);
+    value.html('<h2 style="color: '+ getColor(json.host) +'">'+json.value+'</h2>');
   }
 
   function appendLine(json){
@@ -89,7 +95,9 @@ var Healthety = function(){
         data: []
       };
     }
-    line.data.push( [json.date*1000, json.value] );
+    // line.data.push( [json.date*1000, json.value] );
+    line.data.push( [(new Date()).getTime(), json.value] );
+
     if (line.data.length >= 100){
       line.data.shift();
     }
