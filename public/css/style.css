@@ -714,9 +714,9 @@ a:hover {
 }
 
 /* Small blocks */
-
+.block { width: 98.7% }
 .block.small {
-  width: 50%;
+  width: 49%;
   background: #fff url(../images/bnd.gif) bottom center repeat-x;
   padding-bottom: 0;
   float: left;

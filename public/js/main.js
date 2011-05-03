@@ -96,7 +96,7 @@ var Healthety = function(){
 
     var first_element = line.data.shift();
     // unshift when not older then 5minutes
-    if(first_element[0] > (Date.now()-300000)){
+    if(first_element[0] > ((new Date()).getTime()-300000)){
       line.data.unshift(first_element);
     }
 
