@@ -23,9 +23,34 @@ var Healthety = function(){
     socket.on('message', function(data){
       json = jQuery.parseJSON(data);
       initChart(json);
-      charts[json.name].setupGrid();
-      charts[json.name].draw();
     });
+    setInterval(function(){
+      // clean up values
+      for(var name in lines){
+        // ((new Date()).getTime()-300000)
+        for(var host in lines[name]){
+          for(var value in lines[name][host]['data']){
+            var ref = ((new Date()).getTime()-300000);
+            if(
+              lines[name][host]['data'][value][0] < ref
+            ){
+              lines[name][host]['data'].shift();
+            }
+          }
+        }
+
+        // collect in array
+        var data = [];
+        for(var host in lines[name]){
+          data.push(lines[name][host]);
+        }
+
+        // set and draw
+        charts[name].setData( data );
+        charts[name].setupGrid();
+        charts[name].draw();
+      }
+    }, 500);
   };
 
   minime.getSocket = function(){ return socket; };
@@ -94,18 +119,7 @@ var Healthety = function(){
     // line.data.push( [json.date*1000, json.value] );
     line.data.push( [(new Date()).getTime(), json.value] );
 
-    var first_element = line.data.shift();
-    // unshift when not older then 5minutes
-    if(first_element[0] > ((new Date()).getTime()-300000)){
-      line.data.unshift(first_element);
-    }
 
-    var data = [];
-    for(var host in lines[json.name]){
-      data.push(lines[json.name][host]);
-    }
-
-    charts[json.name].setData( data );
   }
 
   function getColor(hostname){
