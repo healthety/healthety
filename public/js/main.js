@@ -71,13 +71,11 @@ var Healthety = function(){
 
     // Check if host is already known.
     if(charts[json.name] === undefined){
-      $('#main').append('<li id="'+ json.name +'" class="block widget">'+
-        '<div class="block_head"><div class="bheadl"></div><div class="bheadr">'+
-        '</div><h2>'+ json.name +'</h2><ul class="tabs value"></ul></div>'+
-        '<div class="block_content tab_content"><div class="line_chart">'+
-        '</div></div><div class="bendl"></div><div class="bendr"></div></li>');
+      $('#widgets').append('<li id="'+ json.name +'"><div class="header"><h2>' +
+      json.name +'</h2><div class="values"></div><div class="clear"></div>' +
+      '</div><div class="container"><div class="line_chart"></div></div></li>');
 
-      $('#main').sortable();
+      $('#widgets').sortable();
 
       var options = {
         series: { shadowSize:  0},
@@ -90,9 +88,7 @@ var Healthety = function(){
       values[json.name] = {};
       lines[json.name] = {};
 
-      charts[json.name] = $.plot(
-        $('.line_chart:last'), [], options
-      );
+      charts[json.name] = $.plot($('.line_chart:last'), [], options);
     }
     replaceValue(json);
     appendLine(json);
