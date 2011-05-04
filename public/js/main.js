@@ -11,12 +11,8 @@ var Healthety = function(){
   var hosts = [];
   var socket;
 
-  var colors = [
-    "Fuchsia", "Green", "Lime", "Maroon", "Navy", "Olive", "Purple",
-    "Red", "Teal"
-  ];
-
-  var colors = ["#edc240", "#afd8f8", "#cb4b4b", "#4da74d", "#9440ed"];
+  var colors = ['#edc240', '#afd8f8', '#cb4b4b', '#4da74d', '#9440ed',
+    '#3366CC', '#66FF99', '#CC66CC'];
 
   minime.draw = function(){
     socket = connect();
