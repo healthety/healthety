@@ -49,7 +49,14 @@ var Healthety = function(){
         charts[name].setData( data );
         charts[name].setupGrid();
         charts[name].draw();
+      };
+
+      // write legend
+      $('.legend').html('');
+      for(var i in hosts){
+        $('.legend').append('<li style="color:'+ colors[i] +'">'+ hosts[i] +'</li>')
       }
+
     }, 500);
   };
 
@@ -80,7 +87,8 @@ var Healthety = function(){
         series: { shadowSize:  0},
         xaxis:  { mode: 'time', timeformat: "%H:%M:%S" },
         yaxis:  { min: 0 },
-        grid:   { color: '#666'}
+        grid:   { color: '#666'},
+        legend: { show: false }
       };
 
       values[json.name] = {};

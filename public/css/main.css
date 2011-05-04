@@ -19,3 +19,7 @@ li.small {
   margin-right: 10px;
 }
 
+.legend li {
+  float: left;
+  margin-right: 1em;
+}
