@@ -3,11 +3,11 @@
 body {
   background: #d7d7d7 url('../images/bg.png') 0 0 repeat;
   font-family: 'Trebuchet MS', Helvetica, sans-serif;
+  margin-left: 2%;
 }
 
 #wrapper {
-  width: 92%;
-  min-width: 600px;
+  width: 96%;
   margin: 10px auto 0 auto;
   position: relative;
 }
@@ -15,7 +15,7 @@ body {
 #legend {
   position: absolute;
   top: 15px;
-  right: 0;
+  right: 2%;
 }
 
 #legend span {
@@ -37,6 +37,19 @@ h1 {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
+  float: left;
+  width: 98%;
+  clear: both;
+}
+
+#widgets li.small {
+  width: 48%;
+  clear: none;
+  margin-right: 20px;
+}
+
+#widgets li.small .container {
+  padding-bottom: 0;
 }
 
 #widgets li .header {
@@ -66,7 +79,8 @@ h1 {
 }
 
 #widgets li .container {
-  padding: 5px;
+  padding: 5px 25px;
+  overflow: hidden;
 }
 
 .line_chart {

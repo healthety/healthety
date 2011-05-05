@@ -11,10 +11,12 @@ var Healthety = function(){
   var hosts = [];
   var socket;
 
-  var colors = ['#edc240', '#afd8f8', '#cb4b4b', '#4da74d', '#9440ed',
-    '#3366CC', '#66FF99', '#CC66CC'];
+  var colors = ['#edc240', '#cb4b4b', '#4da74d', '#9440ed', '#3366CC',
+    '#66FF99', '#CC66CC'];
 
   minime.draw = function(){
+    $('#wrapper').append('<div id="legend"></div>');
+
     socket = connect();
     socket.on('message', function(data){
       json = jQuery.parseJSON(data);
@@ -48,9 +50,9 @@ var Healthety = function(){
       };
 
       // write legend
-      $('.legend').html('');
-      for(var i in hosts){
-        $('.legend').append('<li style="color:'+ colors[i] +'">'+ hosts[i] +'</li>')
+      $('#legend').html('');
+      for(var i in hosts.sort()){
+        $('#legend').append('<span style="color:'+ colors[i] +'">'+ hosts[i] +'</span>')
       }
 
     }, 500);
@@ -68,14 +70,16 @@ var Healthety = function(){
 
   function initChart(json){
     if(hosts.indexOf(json.host) == -1) hosts.push(json.host);
+    var widget = json.name.replace(/_/, ' ');
 
     // Check if host is already known.
     if(charts[json.name] === undefined){
       $('#widgets').append('<li id="'+ json.name +'"><div class="header"><h2>' +
-      json.name +'</h2><div class="values"></div><div class="clear"></div>' +
+      widget +'</h2><div class="values"></div><div class="clear"></div>' +
       '</div><div class="container"><div class="line_chart"></div></div></li>');
 
       $('#widgets').sortable();
+      $('#widgets').disableSelection();
 
       var options = {
         series: { shadowSize:  0},
@@ -98,11 +102,11 @@ var Healthety = function(){
     var value = values[json.name][json.host];
     var hostname = json.host.replace(/\W/g, '_');
     if(value === undefined){
-      $('#' + json.name + ' .value').append(
-        '<li class="nobg '+ hostname +'"></li>'
+      $('#' + json.name + ' .values').append(
+        '<span class="'+ hostname +'"></span>'
       );
-      value = values[json.name][json.host] = $('#'+json.name+' .value li:last ');
-      value.css('color', getColor(json.host)).css('font-size', '20px');
+      value = values[json.name][json.host] = $('#'+json.name+' .values span:last ');
+      value.css('color', getColor(json.host));
     }
     value.html(json.value);
   }
