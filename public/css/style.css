@@ -3,19 +3,17 @@
 body {
   background: #d7d7d7 url('../images/bg.png') 0 0 repeat;
   font-family: 'Trebuchet MS', Helvetica, sans-serif;
-  margin-left: 2%;
 }
 
 #wrapper {
-  width: 96%;
-  margin: 10px auto 0 auto;
+  margin: 10px 0 0 2.7%;
   position: relative;
 }
 
 #legend {
   position: absolute;
-  top: 15px;
-  right: 2%;
+  top: 12px;
+  right: 2.7%;
 }
 
 #legend span {
@@ -25,7 +23,8 @@ body {
 h1 {
   color: #004892;
   text-shadow: 1px 1px 1px #fff;
-  font-size: 30px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 #widgets {
@@ -33,28 +32,29 @@ h1 {
 }
 
 #widgets li {
-  margin-top: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  float: left;
-  width: 98%;
   clear: both;
+  margin-right: 2.7%;
+  margin-bottom: 20px;
+  display: block;
 }
 
-#widgets li.small {
+#widgets li.minimized {
+  float: left;
   width: 48%;
   clear: none;
-  margin-right: 20px;
+  margin: 0 1% 20px 0;
 }
 
-#widgets li.small .container {
+#widgets li.minimized .container {
   padding-bottom: 0;
 }
 
 #widgets li .header {
   margin-top: 5px;
-  padding: 5px 15px 10px 15px;
+  padding: 5px 15px 7px 15px;
   background: -moz-linear-gradient(top, #fff, #e6e6e6);
   background: -webkit-linear-gradient(#fff, #e6e6e6);
   border-bottom: 1px solid #ccc;
@@ -62,7 +62,7 @@ h1 {
 
 #widgets li h2 {
   font-weight: normal;
-  font-size: 18px;
+  font-size: 20px;
   color: #363636;
   float: left;
   padding-top: 1px;
@@ -71,7 +71,7 @@ h1 {
 
 #widgets li .header .values {
   float: right;
-  font-size: 22px;
+  font-size: 25px;
 }
 
 #widgets li .header .values span {
@@ -79,13 +79,14 @@ h1 {
 }
 
 #widgets li .container {
-  padding: 5px 25px;
+  padding: 5px 20px;
   overflow: hidden;
 }
 
 .line_chart {
-  height: 300px;
+  height: 320px;
   width: 100%;
+  display: block;
 }
 
 .clear {

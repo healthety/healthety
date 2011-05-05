@@ -44,10 +44,10 @@ $(function(){
 
     if (chart_hidden) {
       chart.show();
-      $(this).parents('li').removeClass('small');
+      $(this).parents('li').removeClass('minimized');
     } else {
       chart.hide();
-      $(this).parents('li').addClass('small');
+      $(this).parents('li').addClass('minimized');
     };
   });
 });
