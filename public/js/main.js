@@ -11,8 +11,8 @@ var Healthety = function(){
   var hosts = [];
   var socket;
 
-  var colors = ['#edc240', '#cb4b4b', '#4da74d', '#9440ed', '#3366CC',
-    '#66FF99', '#CC66CC'];
+  var colors = ["#0063ed", "#d44105", "#81e439", "#efb100", "#8f46f1",
+    "#ce4176", "#52cffa", "#ffd528"];
 
   minime.draw = function(){
     $('#wrapper').append('<div id="legend"></div>');
