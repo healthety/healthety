@@ -27,7 +27,7 @@ jQuery.fn.extend({
     var returnVal = new Array();
     var qString = null;
 
-    if ($(this).attr("nodeName")=="#document") {
+    if ($(this).prop("nodeName")=="#document") {
       //document-handler
 
     if (window.location.search.search(strParamName) > -1 ){
