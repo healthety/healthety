@@ -126,8 +126,6 @@ var Healthety = function(){
     }
     // line.data.push( [json.date*1000, json.value] );
     line.data.push( [(new Date()).getTime(), json.value] );
-
-
   }
 
   function getColor(hostname){
