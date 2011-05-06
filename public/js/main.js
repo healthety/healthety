@@ -51,8 +51,10 @@ var Healthety = function(){
 
       // write legend
       $('#legend').html('');
-      for(var i in hosts.sort()){
-        $('#legend').append('<span style="color:'+ colors[i] +'">'+ hosts[i] +'</span>')
+      for(var i in hosts){
+        $('#legend').append(
+          '<span style="color:'+ colors[i] +'">'+ hosts[i] +'</span>'
+        );
       }
 
     }, 500);
@@ -69,7 +71,9 @@ var Healthety = function(){
   }
 
   function initChart(json){
-    if(hosts.indexOf(json.host) == -1) hosts.push(json.host);
+    if(hosts.indexOf(json.host) == -1) {
+      hosts.push(json.host);
+    }
     var widget = json.name.replace(/_/, ' ');
 
     // Check if host is already known.
