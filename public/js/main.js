@@ -25,12 +25,11 @@ var Healthety = function(){
     setInterval(function(){
       // clean up values
       for(var name in lines){
-        // ((new Date()).getTime()-300000)
+        var threshold = getThreshold(json.name);
         for(var host in lines[name]){
           for(var value in lines[name][host]['data']){
-            var ref = ((new Date()).getTime()-300000);
             if(
-              lines[name][host]['data'][value][0] < ref
+              lines[name][host]['data'][value][0] < threshold
             ){
               lines[name][host]['data'].shift();
             }
@@ -130,6 +129,17 @@ var Healthety = function(){
 
   function getColor(hostname){
     return colors[hosts.indexOf(hostname)];
+  }
+
+  function getThreshold(hostname){
+    var custom = $(document).getUrlParam(hostname+'_thres');
+    var threshold;
+    if(custom == null){
+     threshold = 300000;
+    } else {
+      threshold = parseInt($(document).getUrlParam(hostname+'_thres')) * 60*1000;
+    }
+    return (new Date()).getTime() - threshold;
   }
 
   return minime;
