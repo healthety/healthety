@@ -54,7 +54,7 @@ h1 {
 
 #widgets li .header {
   margin-top: 5px;
-  padding: 5px 15px 7px 15px;
+  padding: 5px 15px 3px 15px;
   background: -moz-linear-gradient(top, #fff, #e6e6e6);
   background: -webkit-linear-gradient(#fff, #e6e6e6);
   border-bottom: 1px solid #ccc;
@@ -65,8 +65,15 @@ h1 {
   font-size: 20px;
   color: #363636;
   float: left;
-  padding-top: 1px;
   text-transform: capitalize;
+  height: 32px;
+  cursor: move;
+  padding-right: 35px;
+}
+
+#widgets li h2.warn {
+  color: #de1F00;
+  background: transparent url('../images/warn.png') 100% 20% no-repeat;
 }
 
 #widgets li .header .values {

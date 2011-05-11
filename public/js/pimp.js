@@ -28,9 +28,9 @@ $(function(){
     };
 
     if(warn){
-      $('#' + json.name + ' h2').css('color', 'red');
+      $('#' + json.name + ' h2').addClass('warn');
     } else {
-      $('#' + json.name + ' h2').css('color', '');
+      $('#' + json.name + ' h2').removeClass('warn');
     }
 
   });
