@@ -25,7 +25,7 @@ var Healthety = function(){
     setInterval(function(){
       // clean up values
       for(var name in lines){
-        var threshold = getThreshold(json.name);
+        var threshold = getThreshold(name);
         for(var host in lines[name]){
           for(var value in lines[name][host]['data']){
             if(
@@ -131,13 +131,13 @@ var Healthety = function(){
     return colors[hosts.indexOf(hostname)];
   }
 
-  function getThreshold(hostname){
-    var custom = $(document).getUrlParam(hostname+'_thres');
+  function getThreshold(name){
+    var custom = $(document).getUrlParam(name+'_frame');
     var threshold;
     if(custom == null){
-     threshold = 300000;
+      threshold = 300000;
     } else {
-      threshold = parseInt($(document).getUrlParam(hostname+'_thres')) * 60*1000;
+      threshold = parseInt(custom) * 60*1000;
     }
     return (new Date()).getTime() - threshold;
   }
