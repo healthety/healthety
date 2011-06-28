@@ -35,3 +35,17 @@ Optional you can use basic auth to protect your reports.
       {basicAuth: {user: 'admin', pass: 'secret'}}
     );
 
+## Other Features
+
+You can specify the time frame by adding snake case chart name plus '_frame' and
+value in seconds. I know, lousy description... Example for set 'Load Average' chart time frame to 5minutes:
+
+     your.healthety.server.com/?load_average_frame=300000
+
+It is also possible to display warnings when given limits are exceeded. Example for setting limits for 'Memory' chart to 12000:
+
+    your.healthety.server.com/?memory=12000
+
+## Other installation methods and monitoring
+
+We can provide [Chef](https://github.com/opscode/chef) and [Monit](http://mmonit.com/monit/) recipes. They are not polished and thus not published, but we could give it to you if you promise not to show anyone.
