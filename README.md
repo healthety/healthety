@@ -2,7 +2,7 @@
 
 Healthety is a realtime and easy to setup monitoring framework built on Node.
 
-The server listens to a given port for UDP packets and streams these informations via WebSockets to the fontend.
+The server listens to a given port for UDP packets and streams these information via WebSockets to the fontend.
 
 ## Installation
 
@@ -37,7 +37,7 @@ Optional you can use basic auth to protect your reports.
 
 ## Other Features
 
-You can specify the time frame by adding snake case chart name plus '_frame' and
+You can specify the time frame by adding snake case chart namee plus '_frame' and
 value in seconds. I know, lousy description... Example for set 'Load Average' chart time frame to 5minutes:
 
      your.healthety.server.com/?load_average_frame=300000
