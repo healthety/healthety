@@ -2,7 +2,7 @@
 
 Healthety is a realtime and easy to setup monitoring framework built on Node.
 
-The server listens to a given port for UDP packets and streams these informations via WebSockets to the fontend.
+The server listens to a given port for UDP packets and streams these information  via WebSockets to the fontend.
 
 ## Installation
 
