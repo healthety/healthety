@@ -12,7 +12,7 @@ var Healthety = function(){
   var socket;
 
   var colors = ["#0063ed", "#d44105", "#81e439", "#efb100", "#8f46f1",
-    "#ce4176", "#52cffa", "#ffd528"];
+                "#ce4176", "#52cffa", "#ffd528"];
 
   minime.draw = function(){
     $('#wrapper').append('<div id="legend"></div>');
@@ -22,6 +22,7 @@ var Healthety = function(){
       json = jQuery.parseJSON(data);
       initChart(json);
     });
+
     setInterval(function(){
       // clean up values
       for(var name in lines){
@@ -55,6 +56,16 @@ var Healthety = function(){
           '<span style="color:'+ colors[i] +'">'+ hosts[i] +'</span>'
         );
       }
+
+      $('#legend > span').sortElements(function(a, b){
+          return $(a).text() > $(b).text() ? 1 : -1;
+      });
+
+      $.each($('.header'), function(idx, elm){
+        $('.values > span', elm).sortElements(function(a, b){
+            return $(a).attr('class') > $(b).attr('class') ? 1 : -1;
+        })
+      });
 
     }, 500);
   };
