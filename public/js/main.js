@@ -52,8 +52,9 @@ var Healthety = function(){
       // write legend
       $('#legend').html('');
       for(var i in hosts){
+        var cut_off = $(document).getUrlParam('cut_off')
         $('#legend').append(
-          '<span style="color:'+ colors[i] +'">'+ hosts[i] +'</span>'
+          '<span style="color:'+ colors[i] +'">'+ hosts[i].replace(cut_off, '') +'</span>'
         );
       }
 
