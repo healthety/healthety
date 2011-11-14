@@ -1,7 +1,7 @@
 {
   "name": "healthety",
   "description": "Realtime monitoring framework.",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "homepage": "https://github.com/healthety/healthety",
   "repository": {
     "type": "git",
@@ -9,7 +9,8 @@
   },
   "author": [
     "Hans Hasselberg <hans.hasselberg@googlemail.com>",
-    "Martin Jagusch <m@martinjagusch.com>"
+    "Martin Jagusch <m@martinjagusch.com>",
+    "Christoph Rahles <christoph@rahles.de>"
   ],
   "main": "index",
   "engines": {
