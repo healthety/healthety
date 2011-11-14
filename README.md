@@ -46,6 +46,10 @@ It is also possible to display warnings when given limits are exceeded. Example 
 
     your.healthety.server.com/?memory=12000
 
+To shorten the host names in legend provide 'cut_off' parameter:
+
+    your.healthety.server.com/?cut_off=.example.com
+
 ## Other installation methods and monitoring
 
 We can provide [Chef](https://github.com/opscode/chef) and [Monit](http://mmonit.com/monit/) recipes. They are not polished and thus not published, but we could give it to you if you promise not to show anyone.
