@@ -62,10 +62,10 @@ var Healthety = function(){
   minime.getSocket = function(){ return socket; };
 
   function connect(){
-    socket = new io.Socket(
+    socket = io.connect(
       window.location.host.split(":")[0], {'port': window.location.port}
     );
-    socket.connect();
+    //socket.connect();
     return socket;
   }
 
