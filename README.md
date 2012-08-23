@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/healthety/healthety.png)](http://travis-ci.org/healthety/healthety)
 # Healthety
 
 Healthety is a realtime and easy to setup monitoring framework built on Node.
